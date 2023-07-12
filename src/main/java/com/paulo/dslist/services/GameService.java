@@ -31,7 +31,13 @@ public class GameService {
 
 	@Transactional(readOnly = true)
 	public List<GameMinDTO> findAll() {
-		return gameRepository.findAll().stream().map(game -> modelMapper.map(game, GameMinDTO.class))
+		return gameRepository.findAll().stream().map(games -> modelMapper.map(games, GameMinDTO.class))
+				.collect(Collectors.toList());
+	}
+
+	@Transactional(readOnly = true)
+	public List<GameMinDTO> findByList(Long listId) {
+		return gameRepository.searchByList(listId).stream().map(games -> modelMapper.map(games, GameMinDTO.class))
 				.collect(Collectors.toList());
 	}
 
